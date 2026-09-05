@@ -1,3 +1,11 @@
+// [Low-Memory Profile]
+(function() {
+  try {
+    Object.defineProperty(navigator, 'deviceMemory', { get: () => 1, configurable: true });
+    Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => 2, configurable: true });
+  } catch (e) {}
+})();
+
 // 1080p native UI enabled: 4K viewport spoof removed
 
 

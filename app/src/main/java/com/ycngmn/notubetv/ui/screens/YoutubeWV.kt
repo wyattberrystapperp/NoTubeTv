@@ -120,7 +120,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
                 addJavascriptInterface(NetworkBridge(navigator), "NetworkBridge")
 
                 // Enables hardware acceleration
-                setLayerType(View.LAYER_TYPE_HARDWARE, null)
+                setLayerType(View.LAYER_TYPE_NONE, null)
                 // Set the zoom to 25% to fit the screen. Side-effect of viewport spoofing.
                 // Native 100% scale for 1080p UI
 
