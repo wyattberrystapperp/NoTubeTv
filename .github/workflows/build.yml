@@ -1,5 +1,10 @@
 name: Build APK
 on: [push, workflow_dispatch]
+
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,11 +14,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: 'gradle'
       - uses: gradle/actions/setup-gradle@v3
         with:
           cache-read-only: false
       - run: chmod +x gradlew
-      - run: ./gradlew assembleDebug --daemon --build-cache --parallel
+      - run: ./gradlew assembleDebug --daemon --build-cache --parallel -x lint -x test
       - uses: actions/upload-artifact@v4
         with:
           name: NoTubeTv-debug
