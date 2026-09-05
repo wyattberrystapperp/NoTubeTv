@@ -41,6 +41,12 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
 
     val loadingState = state.loadingState
     val exitTrigger = remember { mutableStateOf(false) }
+    val menuTrigger = youtubeVM.menuTrigger
+    LaunchedEffect(menuTrigger) {
+        if (menuTrigger > 0L) {
+            navigator.evaluateJavaScript("window.modernUI && window.modernUI();")
+        }
+    }
 
     // Translate native back-presses to 'escape' button press
     BackHandler {
