@@ -55,18 +55,15 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
         else exitTrigger.value = true
     }
 
-    // Fetch scripts and updates at launch
+    // Load bundled local userscript immediately (standalone, 0ms latency)
     LaunchedEffect(Unit) {
-        youtubeVM.setScript(fetchScripts() )
-        getUpdate(context, navigator) { update ->
-            if (update != null) youtubeVM.setUpdate(update)
-        }
+        youtubeVM.setScript(fetchScripts(context))
     }
 
     if (loadingState == LoadingState.Finished && jsScript != null)
         navigator.evaluateJavaScript(jsScript)
     // If any update found, show the dialog.
-    if (updateData != null) UpdateDialog(updateData, navigator)
+    // Update dialog disabled (standalone)
     // If exit button is pressed, 'finish the activity' aka 'exit the app'.
     if (exitTrigger.value) activity.finish()
 
