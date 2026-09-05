@@ -60,8 +60,11 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
         youtubeVM.setScript(fetchScripts(context))
     }
 
-    if (loadingState == LoadingState.Finished && jsScript != null)
-        navigator.evaluateJavaScript(jsScript)
+    LaunchedEffect(loadingState, jsScript) {
+        if (loadingState is LoadingState.Finished && jsScript != null) {
+            navigator.evaluateJavaScript(jsScript)
+        }
+    }
     // If any update found, show the dialog.
     // Update dialog disabled (standalone)
     // If exit button is pressed, 'finish the activity' aka 'exit the app'.

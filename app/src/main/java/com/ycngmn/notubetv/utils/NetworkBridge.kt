@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
+import org.json.JSONObject
 
 class NetworkBridge(val navigator: WebViewNavigator) {
     private val client = HttpClient(OkHttp)
@@ -23,7 +24,7 @@ class NetworkBridge(val navigator: WebViewNavigator) {
                 val filteredBody =
                     if (body.startsWith("[")) filterSponsorBlock(body, videoId)
                     else body
-                val js = "window.onNetworkBridgeResponse('$filteredBody');"
+                val js = "window.onNetworkBridgeResponse(${JSONObject.quote(filteredBody)});"
                 withContext(Dispatchers.Main) { navigator.evaluateJavaScript(js) }
             } catch (_: Exception) { /*Just don't crash'*/ }
         }
