@@ -105,6 +105,8 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
                     domStorageEnabled = true
                     hideDefaultVideoPoster = true
                     mediaPlaybackRequiresUserGesture = false
+                    safeBrowsingEnabled = false
+                    setGeolocationEnabled(false)
                 }
             }
 

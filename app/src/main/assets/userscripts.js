@@ -1,3 +1,24 @@
+// [Tectonic GPU & Telemetry Shield]
+(function() {
+  // 1. Blackhole telemetry pings (QoE, tracking, logging)
+  const origOpen = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method, url) {
+    if (typeof url === 'string' && (url.includes('/api/stats/') || url.includes('/log_event'))) {
+      this.send = () => {};
+      return;
+    }
+    return origOpen.apply(this, arguments);
+  };
+
+  // 2. Kill Mali GPU shader blurs and heavy drop-shadows
+  const s = document.createElement('style');
+  s.textContent = `
+    * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    [idomkey] { box-shadow: none !important; text-shadow: none !important; }
+  `;
+  document.documentElement.appendChild(s);
+})();
+
 // [Low-Memory Profile]
 (function() {
   try {
