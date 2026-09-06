@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,8 +17,11 @@ class MainActivity : ComponentActivity() {
     private val youtubeVM: YoutubeVM by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        // Standard 1080p window layout
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
         setContent { NoTubeTVTheme { Box(Modifier.fillMaxSize()) { YoutubeWV(youtubeVM) } } }
     }
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

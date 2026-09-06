@@ -33,7 +33,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
     val context = LocalContext.current
     val activity = context as Activity
 
-    val state = rememberWebViewState("https://www.youtube.com/tv")
+    val state = rememberWebViewState("https://www.youtube.com/tv"https://www.youtube.com/tv")
     val navigator = rememberWebViewNavigator()
 
     val jsScript = youtubeVM.scriptData
@@ -82,10 +82,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
         captureBackPresses = false,
         onCreated = { webView ->
 
-            (activity.window).setLayout(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT
-            )
+            // Window layout handled in MainActivity
 
             // Set up cookies
             val cookieManager = CookieManager.getInstance()
