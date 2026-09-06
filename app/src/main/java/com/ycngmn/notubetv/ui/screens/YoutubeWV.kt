@@ -100,6 +100,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
                 isJavaScriptEnabled = true
 
                 androidWebSettings.apply {
+                    //isDebugInspectorInfoEnabled = true
                     useWideViewPort = true
                     domStorageEnabled = true
                     hideDefaultVideoPoster = true
@@ -120,16 +121,12 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
 
                 // Enables hardware acceleration
                 setLayerType(View.LAYER_TYPE_NONE, null)
-                }
                 // Set the zoom to 25% to fit the screen. Side-effect of viewport spoofing.
                 // Native 100% scale for 1080p UI
 
                 // Hide scrollbars
                 isVerticalScrollBarEnabled = false
                 isHorizontalScrollBarEnabled = false
-                overScrollMode = View.OVER_SCROLL_NEVER
-                isLongClickable = false
-                isHapticFeedbackEnabled = false
             }
         }
     )
