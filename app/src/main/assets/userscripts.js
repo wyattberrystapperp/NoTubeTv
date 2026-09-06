@@ -849,15 +849,18 @@
         });
       });
 
+      let sliderAttempts = 0;
       this.sliderInterval = setInterval(() => {
         this.slider = document.querySelector('[idomkey="slider"]');
+        sliderAttempts++;
         if (this.slider) {
           clearInterval(this.sliderInterval);
           this.sliderInterval = null;
-          this.observer.observe(this.slider, {
-            childList: true,
-          });
+          this.observer.observe(this.slider, { childList: true });
           this.slider.appendChild(this.segmentsoverlay);
+        } else if (sliderAttempts >= 10) {
+          clearInterval(this.sliderInterval);
+          this.sliderInterval = null;
         }
       }, 500);
     }

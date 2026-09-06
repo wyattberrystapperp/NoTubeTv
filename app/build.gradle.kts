@@ -41,8 +41,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.ktor.client.core)
-    implementation (libs.ktor.ktor.client.okhttp)
+        implementation("com.squareup.okhttp3:okhttp:4.12.0")
     api(libs.compose.webview.multiplatform)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.core.ktx)

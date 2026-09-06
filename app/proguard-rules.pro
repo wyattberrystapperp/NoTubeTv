@@ -13,8 +13,6 @@
 -dontwarn com.multiplatform.webview.**
 
 # 3. Ktor & OkHttp Reflection
--keep class io.ktor.** { *; }
--dontwarn io.ktor.**
 -keep class okhttp3.** { *; }
 -dontwarn okhttp3.**
 -dontwarn okio.**
