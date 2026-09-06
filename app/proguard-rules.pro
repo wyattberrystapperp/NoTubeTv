@@ -1,25 +1,28 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# --- NoTubeTV R8 Production Safety Net ---
+-keepattributes SourceFile,LineNumberTable,*Annotation*,Signature,InnerClasses,EnclosingMethod,JavascriptInterface
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# 1. Critical: JavaScript Interfaces (SponsorBlock & ExitBridge)
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+-keep class com.ycngmn.notubetv.utils.NetworkBridge { *; }
+-keep class com.ycngmn.notubetv.utils.ExitBridge { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# 2. Multiplatform WebView & WebKit
+-keep class com.multiplatform.webview.** { *; }
+-dontwarn com.multiplatform.webview.**
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# 3. Ktor & OkHttp Reflection
+-keep class io.ktor.** { *; }
+-dontwarn io.ktor.**
+-keep class okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**
 
-# Please add these rules to your existing keep rules in order to suppress warnings.
-# This is generated automatically by the Android Gradle plugin.
+# 4. Kotlin Coroutines & ViewModel
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepclassmembernames class kotlinx.coroutines.** { volatile <fields>; }
+-dontwarn kotlinx.coroutines.**
+-keep class com.ycngmn.notubetv.ui.YoutubeVM { *; }
 -dontwarn org.slf4j.impl.StaticLoggerBinder
