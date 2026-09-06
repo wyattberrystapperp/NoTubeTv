@@ -1,3 +1,18 @@
+// [AV1 Hardware Kill-Switch - Force 60FPS VP9 VPU]
+(function() {
+  const isAV1 = (t) => typeof t === "string" && (t.includes("av01") || t.includes("av1"));
+  if (window.MediaSource && typeof window.MediaSource.isTypeSupported === "function") {
+    const orig = window.MediaSource.isTypeSupported.bind(window.MediaSource);
+    window.MediaSource.isTypeSupported = (t) => isAV1(t) ? false : orig(t);
+  }
+  if (HTMLMediaElement.prototype.canPlayType) {
+    const origPlay = HTMLMediaElement.prototype.canPlayType;
+    HTMLMediaElement.prototype.canPlayType = function(t) {
+      return isAV1(t) ? "" : origPlay.apply(this, arguments);
+    };
+  }
+})();
+
 // [Root Viewport Lock - Prevent Spatial Scroll Panning]
 (function() {
   const lock = () => {
