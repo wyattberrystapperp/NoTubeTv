@@ -1,3 +1,28 @@
+// [Root Viewport Lock - Prevent Spatial Scroll Panning]
+(function() {
+  const lock = () => {
+    if (window.scrollX !== 0 || window.scrollY !== 0) window.scrollTo(0, 0);
+    if (document.documentElement.scrollTop !== 0) document.documentElement.scrollTop = 0;
+  };
+  window.addEventListener('scroll', lock, { passive: true });
+  window.addEventListener('resize', lock, { passive: true });
+  
+  const s = document.createElement('style');
+  s.textContent = `
+    html, body {
+      overflow: hidden !important;
+      position: fixed !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+  `;
+  document.documentElement.appendChild(s);
+})();
+
 // [Tectonic GPU & Telemetry Shield]
 (function() {
   // 1. Blackhole telemetry pings (QoE, tracking, logging)
