@@ -33,7 +33,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
     val context = LocalContext.current
     val activity = context as Activity
 
-    val state = rememberWebViewState("https://www.youtube.com/tv"https://www.youtube.com/tv")
+    val state = rememberWebViewState("https://www.youtube.com/tv")
     val navigator = rememberWebViewNavigator()
 
     val jsScript = youtubeVM.scriptData
