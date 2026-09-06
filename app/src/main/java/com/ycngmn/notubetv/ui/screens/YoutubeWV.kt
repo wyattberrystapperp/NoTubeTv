@@ -98,8 +98,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
                     //isDebugInspectorInfoEnabled = true
                     useWideViewPort = true
                     domStorageEnabled = true
-                    databaseEnabled = true
-                    hideDefaultVideoPoster = true
+                                        hideDefaultVideoPoster = true
                     mediaPlaybackRequiresUserGesture = false
                 }
             }
