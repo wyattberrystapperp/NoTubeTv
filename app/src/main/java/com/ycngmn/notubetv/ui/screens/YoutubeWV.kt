@@ -118,6 +118,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
 
                 // Enables hardware acceleration
                 setLayerType(View.LAYER_TYPE_NONE, null)
+                overScrollMode = View.OVER_SCROLL_NEVER
                 // Set the zoom to 25% to fit the screen. Side-effect of viewport spoofing.
                 // Native 100% scale for 1080p UI
 

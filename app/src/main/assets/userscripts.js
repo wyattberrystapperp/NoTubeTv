@@ -144,32 +144,17 @@
 /* End menuTrigger.js */
 
 /* Start exitBridge.js */
-// Exit Bridge to react to exit button call.
+// Event-delegated Exit Bridge (Zero DOM Polling / Zero MutationObserver)
 (function () {
-  const observer = new MutationObserver((mutations, obs) => {
-    const exitButton = document.querySelector(
-      ".ytVirtualListItemLast ytlr-button.ytLrButtonLargeShape"
-    );
-
-    if (exitButton) {
-      exitButton.addEventListener(
-        "keydown",
-        (e) => {
-          if (
-            (e.key === "Enter" || e.keyCode === 13) &&
-            typeof ExitBridge !== "undefined" &&
-            ExitBridge.onExitCalled
-          ) {
-            e.preventDefault();
-            e.stopPropagation();
-            ExitBridge.onExitCalled();
-          }
-        },
-        true
-      );
+  document.addEventListener("keydown", (e) => {
+    if ((e.key === "Enter" || e.keyCode === 13) && typeof ExitBridge !== "undefined" && ExitBridge.onExitCalled) {
+      if (e.target && e.target.closest && e.target.closest(".ytVirtualListItemLast ytlr-button.ytLrButtonLargeShape")) {
+        e.preventDefault();
+        e.stopPropagation();
+        ExitBridge.onExitCalled();
+      }
     }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
+  }, true);
 })();
 /* End exitBridge.js */
 
