@@ -53,10 +53,9 @@ class MainActivity : ComponentActivity() {
                 builtInZoomControls = false
             }
 
-            CookieManager.getInstance().apply {
-                setAcceptCookie(true)
-                setAcceptThirdPartyCookies(this@apply, true)
-            }
+            val cm = CookieManager.getInstance()
+            cm.setAcceptCookie(true)
+            cm.setAcceptThirdPartyCookies(this, true)
 
             addJavascriptInterface(ExitBridge(this@MainActivity), "ExitBridge")
             addJavascriptInterface(NetworkBridge(this), "NetworkBridge")
