@@ -1,14 +1,13 @@
 package com.ycngmn.notubetv.utils
-
 import android.webkit.JavascriptInterface
-import com.multiplatform.webview.web.WebViewNavigator
+import android.webkit.WebView
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class NetworkBridge(val navigator: WebViewNavigator) {
+class NetworkBridge(private val webView: WebView) {
     private val client = OkHttpClient()
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -20,7 +19,7 @@ class NetworkBridge(val navigator: WebViewNavigator) {
                 val body = client.newCall(req).execute().use { it.body?.string() ?: "" }
                 val filtered = if (body.startsWith("[")) filterSponsorBlock(body, videoId) else body
                 val js = "window.onNetworkBridgeResponse(${JSONObject.quote(filtered)});"
-                withContext(Dispatchers.Main) { navigator.evaluateJavaScript(js) }
+                withContext(Dispatchers.Main) { webView.evaluateJavascript(js, null) }
             } catch (_: Exception) {}
         }
     }

@@ -1,9 +1,8 @@
 package com.ycngmn.notubetv.utils
-
+import android.app.Activity
 import android.webkit.JavascriptInterface
-import androidx.compose.runtime.MutableState
 
-class ExitBridge(val exitTrigger: MutableState<Boolean>) {
+class ExitBridge(private val activity: Activity) {
     @JavascriptInterface
-    fun onExitCalled() { exitTrigger.value = true }
+    fun onExitCalled() { activity.finish() }
 }
