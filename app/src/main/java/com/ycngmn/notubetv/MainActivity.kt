@@ -51,6 +51,10 @@ class MainActivity : ComponentActivity() {
                 mediaPlaybackRequiresUserGesture = false
                 setSupportZoom(false)
                 builtInZoomControls = false
+                cacheMode = WebSettings.LOAD_DEFAULT
+                setGeolocationEnabled(false)
+                allowFileAccess = false
+                allowContentAccess = false
             }
 
             val cm = CookieManager.getInstance()

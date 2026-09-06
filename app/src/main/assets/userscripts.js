@@ -47,24 +47,28 @@
   document.documentElement.appendChild(s);
 })();
 
-// [Tectonic GPU & Telemetry Shield]
+// [Tectonic GPU & Telemetry Shield - Fully Hardened]
 (function() {
-  // 1. Blackhole telemetry pings (QoE, tracking, logging)
+  const isPing = (u) => typeof u === "string" && (u.includes("/api/stats/") || u.includes("/log_event"));
   const origOpen = XMLHttpRequest.prototype.open;
-  XMLHttpRequest.prototype.open = function(method, url) {
-    if (typeof url === 'string' && (url.includes('/api/stats/') || url.includes('/log_event'))) {
-      this.send = () => {};
-      return;
-    }
+  XMLHttpRequest.prototype.open = function(m, u) {
+    if (isPing(u)) { this.send = () => {}; return; }
     return origOpen.apply(this, arguments);
   };
-
-  // 2. Kill Mali GPU shader blurs and heavy drop-shadows
-  const s = document.createElement('style');
-  s.textContent = `
-    * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-    [idomkey] { box-shadow: none !important; text-shadow: none !important; }
-  `;
+  if (window.fetch) {
+    const origF = window.fetch;
+    window.fetch = function(inp) {
+      const u = typeof inp === "string" ? inp : (inp && inp.url);
+      if (isPing(u)) return Promise.resolve(new Response(""));
+      return origF.apply(this, arguments);
+    };
+  }
+  if (navigator.sendBeacon) {
+    const origB = navigator.sendBeacon.bind(navigator);
+    navigator.sendBeacon = (u) => isPing(u) ? true : origB.apply(this, arguments);
+  }
+  const s = document.createElement("style");
+  s.textContent = "* { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; } [idomkey] { box-shadow: none !important; text-shadow: none !important; } #cinematic-container, [idomkey=\"cinematicContainer\"] { display: none !important; }";
   document.documentElement.appendChild(s);
 })();
 
