@@ -120,15 +120,6 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
 
                 // Enables hardware acceleration
                 setLayerType(View.LAYER_TYPE_NONE, null)
-                settings.apply {
-                    safeBrowsingEnabled = false
-                    setGeolocationEnabled(false)
-                    setSupportZoom(false)
-                    builtInZoomControls = false
-                    allowFileAccess = false
-                    allowContentAccess = false
-                    saveFormData = false
-                    databaseEnabled = false
                 }
                 // Set the zoom to 25% to fit the screen. Side-effect of viewport spoofing.
                 // Native 100% scale for 1080p UI
