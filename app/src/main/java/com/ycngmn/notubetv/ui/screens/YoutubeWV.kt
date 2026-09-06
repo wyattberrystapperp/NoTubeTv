@@ -107,6 +107,14 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
                     mediaPlaybackRequiresUserGesture = false
                     safeBrowsingEnabled = false
                     setGeolocationEnabled(false)
+                    setSupportZoom(false)
+                    builtInZoomControls = false
+                    allowFileAccess = false
+                    allowContentAccess = false
+                    saveFormData = false
+                    databaseEnabled = false
+                    safeBrowsingEnabled = false
+                    setGeolocationEnabled(false)
                 }
             }
 
@@ -129,6 +137,9 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
                 // Hide scrollbars
                 isVerticalScrollBarEnabled = false
                 isHorizontalScrollBarEnabled = false
+                overScrollMode = View.OVER_SCROLL_NEVER
+                isLongClickable = false
+                isHapticFeedbackEnabled = false
             }
         }
     )
