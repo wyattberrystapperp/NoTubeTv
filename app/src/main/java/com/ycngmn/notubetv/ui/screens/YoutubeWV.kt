@@ -19,11 +19,9 @@ import com.multiplatform.webview.web.rememberWebViewNavigator
 import com.multiplatform.webview.web.rememberWebViewState
 import com.ycngmn.notubetv.R
 import com.ycngmn.notubetv.ui.YoutubeVM
-import com.ycngmn.notubetv.ui.components.UpdateDialog
 import com.ycngmn.notubetv.utils.ExitBridge
 import com.ycngmn.notubetv.utils.NetworkBridge
 import com.ycngmn.notubetv.utils.fetchScripts
-import com.ycngmn.notubetv.utils.getUpdate
 import com.ycngmn.notubetv.utils.permHandler
 import com.ycngmn.notubetv.utils.readRaw
 
@@ -37,7 +35,6 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
     val navigator = rememberWebViewNavigator()
 
     val jsScript = youtubeVM.scriptData
-    val updateData = youtubeVM.updateData
 
     val loadingState = state.loadingState
     val exitTrigger = remember { mutableStateOf(false) }
