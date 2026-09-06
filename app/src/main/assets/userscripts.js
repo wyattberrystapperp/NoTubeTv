@@ -5,6 +5,15 @@
     const orig = window.MediaSource.isTypeSupported.bind(window.MediaSource);
     window.MediaSource.isTypeSupported = (t) => isAV1(t) ? false : orig(t);
   }
+  if (navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo) {
+    const origDecode = navigator.mediaCapabilities.decodingInfo.bind(navigator.mediaCapabilities);
+    navigator.mediaCapabilities.decodingInfo = function(cfg) {
+      if (cfg && cfg.video && isAV1(cfg.video.contentType)) {
+        return Promise.resolve({ supported: false, smooth: false, powerEfficient: false });
+      }
+      return origDecode(cfg);
+    };
+  }
   if (HTMLMediaElement.prototype.canPlayType) {
     const origPlay = HTMLMediaElement.prototype.canPlayType;
     HTMLMediaElement.prototype.canPlayType = function(t) {

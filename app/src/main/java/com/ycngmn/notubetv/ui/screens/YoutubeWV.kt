@@ -93,7 +93,7 @@ fun YoutubeWV(youtubeVM: YoutubeVM = viewModel()) {
             state.webSettings.apply {
                 // This user agent provides native like experience.
                 // "PS4" for 4K. "Wired" for previews.
-                customUserAgentString = "Mozilla/5.0 Cobalt/25 (Sony, PS4, Wireless)"
+                customUserAgentString = "Mozilla/5.0 Cobalt/20 (Sony, PS4, Wireless)"
                 isJavaScriptEnabled = true
 
                 androidWebSettings.apply {
